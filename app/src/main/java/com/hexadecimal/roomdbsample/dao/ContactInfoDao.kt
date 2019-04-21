@@ -1,5 +1,6 @@
 package com.hexadecimal.roomdbsample.dao
 
+import android.os.FileObserver.DELETE
 import androidx.room.*
 import com.hexadecimal.roomdbsample.entity.ContactInfoEntity
 
@@ -11,7 +12,8 @@ import com.hexadecimal.roomdbsample.entity.ContactInfoEntity
 @Dao
 interface ContactInfoDao {
 
-    @Insert
+    // eger ekleme sirasinda cakisma olursa yeni eklenen datayi eskisinin uzerine yazar
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     // eklenecek item i parametre olarak verdik
     fun addNewItem(contactInfoEntity: ContactInfoEntity)
 
@@ -22,13 +24,16 @@ interface ContactInfoDao {
     fun updateItem(contactInfoEntity: ContactInfoEntity)
 
     // bu fonk. sonuc donecek, tek bir item donecek
-    @Query("SELECT * FROM contact_table WHERE id = :id")
+    @Query("SELECT * FROM contact_table WHERE _id = :id")
     // hangi ozellige gore arama yapacaksan buna o ozelligi parametre olarak gecir
     fun findSingleItem(id: Int): ContactInfoEntity
 
     // bu fonk. sonuc donecek, array list olarak
     @Query("SELECT * FROM contact_table")
-    fun getAllList(): ArrayList<ContactInfoEntity>
+    fun getAllList(): List<ContactInfoEntity>
+
+    @Query("DELETE FROM contact_table")
+    fun deleteAllTable()
 
 
 }

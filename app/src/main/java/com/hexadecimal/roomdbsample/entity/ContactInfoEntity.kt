@@ -1,5 +1,6 @@
 package com.hexadecimal.roomdbsample.entity
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,12 +10,13 @@ import androidx.room.PrimaryKey
 // kokmelih@gmail.com
 // 20.04.2019 - 13:08
 
-@Entity
+// dao class inda tabloyu yazdigin yerle aynı isimde tablo ismi vermelisin
+@Entity(tableName = "contact_table")
 data class ContactInfoEntity(
 
     // id degerini otomatik olarak arttıracak
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey(autoGenerate = true) @NonNull
+    val _id: Int = 0,
 
     // Column Info tablodaki isme karsilik gelir, nameden sonraki eleman
     // burada yazilan sutun degerleri, her yazdıgında bir sutuna ekleyecek
