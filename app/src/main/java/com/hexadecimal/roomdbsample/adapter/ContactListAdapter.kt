@@ -9,6 +9,7 @@ import com.hexadecimal.roomdbsample.entity.ContactInfoEntity
 // kokmelih@gmail.com
 // 21.04.2019 - 13:05
 
+// tiklanma olmasi icin high order function yazdik
 // high order function un geri donus degeri olmadigi icin -> Unit seklinde kullandik
 class ContactListAdapter(
     private var contactInfoList: List<ContactInfoEntity>,
@@ -26,7 +27,7 @@ class ContactListAdapter(
         holder.bind(contactInfoList[position], onClickListener)
     }
 
-    fun setNewItem(contactInfoList: List<ContactInfoEntity>){
+    fun setNewItem(contactInfoList: List<ContactInfoEntity>) {
 
         // disaridan gelen listeyi benim constructor dan gelen listeye esitledik
         this.contactInfoList = contactInfoList

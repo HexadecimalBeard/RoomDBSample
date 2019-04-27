@@ -10,10 +10,13 @@ import androidx.room.PrimaryKey
 // kokmelih@gmail.com
 // 20.04.2019 - 13:08
 
+// model class i gibi calisiyor
 // dao class inda tabloyu yazdigin yerle aynı isimde tablo ismi vermelisin
 @Entity(tableName = "contact_table")
 data class ContactInfoEntity(
 
+    // id gibi bir deger tutuyorsan basina alt cizgi koy, _id gibi
+    // boolean bir deger varsa onun da onune alt cizgi koy
     // id degerini otomatik olarak arttıracak
     @PrimaryKey(autoGenerate = true) @NonNull
     val _id: Int = 0,

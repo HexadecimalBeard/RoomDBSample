@@ -9,6 +9,7 @@ import com.hexadecimal.roomdbsample.entity.ContactInfoEntity
 // kokmelih@gmail.com
 // 20.04.2019 - 13:19
 
+
 @Dao
 interface ContactInfoDao {
 

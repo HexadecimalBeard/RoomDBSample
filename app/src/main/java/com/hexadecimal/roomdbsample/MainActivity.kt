@@ -40,14 +40,15 @@ class MainActivity : AppCompatActivity() {
             contactEmail = "abc@deneme.com"
         )
 
-        Thread() {
-            kotlin.run {
-                // ekleyecegim kolonda degerler olması icin parametreyi verdik
-                contactInfoDao?.addNewItem(contactInfoEntity)
-                contactInfoDao?.addNewItem(contactInfoEntity2)
-            }
-        }.start()
+        thread(start = true) {
+            // db ye eristigin herhangi bir yer varsa baska bir thread icinde yaz
+            // bunu baska bir thread icinde yazdik ki main thread in akisi bozulmasin
+            // ekleyecegim kolonda degerler olması icin parametreyi verdik
+            contactInfoDao?.addNewItem(contactInfoEntity)
+            contactInfoDao?.addNewItem(contactInfoEntity2)
+        }
 
+        // olan butun data alip recycler view icinde gosterdik
         var allContactList: List<ContactInfoEntity>? = null
         thread(start = true) {
 
@@ -59,8 +60,11 @@ class MainActivity : AppCompatActivity() {
 
                     contactInfoDao?.removeItem(contactInfoEntity)
 
+                    // guncelleme icin listeyi cektik
                     newContactList = contactInfoDao?.getAllList()
 
+                    // bu islem bizi mevcut thread dan cikip main thread e baglandik
+                    // eger güncellenen tablo bastirilacaksa bunu kullanabilirsin
                     runOnUiThread {
                         // kendi adapter imiz oldugu icin kendi adapter imiz olacak sekilde cast ettik
                         (recyclerTodoList.adapter as ContactListAdapter).setNewItem(newContactList!!)
